@@ -267,7 +267,10 @@ fill method to implement this functionality.
 class bus (initial_energy : float) (initial_pos : point) (seats : int) =
 object (this)
   val mutable passengers = 0
-  val seats = seatsmethod get_passengers : int = passengers
+  
+  val seats = seats
+
+  method get_passengers : int = passengers
 
   method get_seats : int = seats
 
@@ -276,7 +279,7 @@ object (this)
   method pick_up (n : int) : unit =passengers <- min seats (passengers + n)
 
   method drop_off (n : int) : unit =passengers <- max 0 (passengers - n)
-  
+
   method! fill =
     this#drop_off passengers;
     super#fill
